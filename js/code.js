@@ -1,18 +1,17 @@
 let inputPokemon = document.querySelector("#input-pokemon");
 let pokemonImg = document.querySelector(".pokemon-img");
+
 let btnSearch = document.querySelector("#btn-search");
 btnSearch.addEventListener("click",()=>{
-  const url = `https://pokeapi.co/api/v2/pokemon/${inputPokemon.value}`;
+  let inputPokemonChange = inputPokemon.value.toLowerCase();
+
+  const url = `https://pokeapi.co/api/v2/pokemon/${inputPokemonChange}`;
   fetch(url)
   .then(data=>data.json())
   .then(data1=>{
-    if(inputPokemon.value == ""){
-      alert("el campo esta vacio");
-    inputPokemon.value =""; 
-
-    }
-    else if(inputPokemon.value != data1.species.name){
-      alert("el nombre del pokemon esta mal");
+    
+    if(inputPokemonChange == ""){
+      alert("Pokemon's name cannot be empty");
     inputPokemon.value =""; 
 
     }else{
@@ -41,8 +40,10 @@ btnSearch.addEventListener("click",()=>{
   })
   .catch(error=>{
     
-      alert("el nombre del pokemon esta mal "+"(El nombre del pokemon no puede contener mayuscula)");
+      alert("Pokemon not found")
       console.log(error);
+    inputPokemon.value =""; 
+
     
   })
 
